@@ -1,0 +1,78 @@
+\usepackage{tikz}  % 図形を描画するためのTikZパッケージ
+\usepackage{svg}
+
+%\newcommand{\frametitle}[1]{\frametitle{#1}}
+%\newcommand{\frametitleb}[1]{\frametitle{\textcolor{black}{#1}}}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{title}{fg=black}
+
+
+% タイトルページのカスタマイズ
+\setbeamertemplate{title page}{
+    \vbox{}
+    \vskip 1cm  % タイトルまでの余白調整
+    \begin{centering}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north west, xshift=-0.1cm, yshift=-0.1cm] at (current page.north west) 
+        %{\includegraphics[width=2.75cm]{./logo.svg}};  % 左上に画像を配置（画像のパスとサイズを指定）
+        {\includesvg[width=5cm]{logo.svg}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north east, xshift=-0.1cm, yshift=0.05cm] at (current page.north east) 
+        {\includegraphics[width=2.75cm]{./SMLlogov1m.png}};  % 右上に画像を配置（画像のパスとサイズを指定）
+    \end{tikzpicture}
+        {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}  % タイトルを表示
+        \vskip -0.1cm
+        \textcolor[HTML]{17288B}{\rule{13cm}{0.4mm}}
+        \vskip 0.1cm
+        {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}  % 著者を表示
+        \vskip 0.5cm
+        {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}  % 学会名を表示
+        \vskip 0.5cm
+        %{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}  % 日付を表示
+    \end{centering}
+    \vfill
+}
+
+% フレームタイトルをカスタマイズして、左上に長方形を追加
+\makeatletter
+\setbeamertemplate{frametitle}
+{
+    \vspace{0.5em}  % タイトル上部にスペース
+    \begin{tikzpicture}[remember picture,overlay]
+        % 左上に長方形を描画
+        \fill[fill={rgb,255:red,23; green,40; blue,139}] (-1,-0.635) rectangle (-0.3,1);  % 長方形（幅1.5cm, 高さ0.4cm）
+    \end{tikzpicture}
+    %\hspace{1.7cm}  % 長方形とフレームタイトルの間にスペースを挿入
+    \insertframetitle\par  % フレームタイトルを表示
+    %\vspace{0.2em}  % タイトルと線の間にスペース
+    \hspace*{-\beamer@leftmargin}  % 左マージンを無効化して線をスライド全体に引く
+    \textcolor[HTML]{17288B}{\rule{\paperwidth}{0.4mm}}  % スライドの幅全体に線を引く（太さ0.4mm）
+    %\vspace{1em}  % タイトルと内容の間にスペース
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north east, xshift=-0.1cm, yshift=0.05cm] at (current page.north east) 
+        {\includegraphics[width=2.75cm]{./SMLlogov1m.png}};  % 右上に画像を配置（画像のパスとサイズを指定）
+    \end{tikzpicture}
+
+}
+\makeatother
+
+% フッターをカスタマイズ
+\setbeamertemplate{footline}
+{
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.70\paperwidth,ht=2.5ex,dp=1ex,left,leftskip=2ex]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\textcolor{gray}{\inserttitle}  
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1ex,right,rightskip=2ex]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\textcolor{gray}{\avenue}  % 右側にページ番号
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.10\paperwidth,ht=2.5ex,dp=1ex,right,rightskip=2ex]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\textcolor{black}{\insertframenumber/\inserttotalframenumber}  % 右側にページ番号
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+}
+% ヘッダー（タイトルバー）を非表示にする場合
+\setbeamertemplate{headline}{}
